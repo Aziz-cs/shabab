@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-
 import '../model/sura.dart';
-
-var kTxtStyleWhite = const TextStyle(
-  color: Colors.white, fontSize: 15.5,
-  // height: 0.5,
-);
 
 List<Map<int, int>> juzAndIndex = [
   {1: 1},

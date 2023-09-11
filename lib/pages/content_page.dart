@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shabab/utils/constants.dart';
+import 'package:shabab/utils/content_data.dart';
 import 'package:shabab/utils/sharedprefs.dart';
+import 'package:shabab/utils/tafsil_data.dart';
 import 'package:shabab/widgets/item_juz.dart';
 import 'package:shabab/widgets/item_sura.dart';
+import 'package:shabab/widgets/item_tafsil.dart';
 
 class ContentPage extends StatelessWidget {
   ContentPage({Key? key}) : super(key: key);
   final List<Tab> myTabs = <Tab>[
     const Tab(text: 'الأجزاء'),
     const Tab(text: 'السور'),
+    const Tab(text: 'التفصيل'),
   ];
   @override
   Widget build(BuildContext context) {
@@ -52,6 +55,7 @@ class ContentPage extends StatelessWidget {
             children: [
               JuzTab(),
               SuraTab(),
+              TafsilTab(),
             ],
           ),
         ),
@@ -92,6 +96,25 @@ class SuraTab extends StatelessWidget {
         tiles: List.generate(
           suraList.length,
           (index) => SuraItem(sura: suraList[index]),
+        ),
+      ).toList(),
+    );
+  }
+}
+
+class TafsilTab extends StatelessWidget {
+  const TafsilTab({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: ListTile.divideTiles(
+        //          <-- ListTile.divideTiles
+        color: Colors.white24,
+        context: context,
+        tiles: List.generate(
+          tafsilList.length,
+          (index) => TafsilItem(tafsil: tafsilList[index]),
         ),
       ).toList(),
     );

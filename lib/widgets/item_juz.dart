@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shabab/pages/quran_page.dart';
-import 'package:shabab/utils/constants.dart';
+import 'package:shabab/utils/content_data.dart';
 import 'package:shabab/utils/helper.dart';
 
 import '../utils/sharedprefs.dart';

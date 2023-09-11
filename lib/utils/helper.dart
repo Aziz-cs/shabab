@@ -1,5 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shabab/utils/sharedprefs.dart';
+
+var kTxtStyleWhite = const TextStyle(
+  color: Colors.white, fontSize: 15.5,
+  // height: 0.5,
+);
 
 void showToast(String message) {
   Fluttertoast.showToast(

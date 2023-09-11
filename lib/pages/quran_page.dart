@@ -10,7 +10,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shabab/pages/content_page.dart';
 import 'package:wakelock/wakelock.dart';
 
-import '../utils/constants.dart';
+import '../utils/content_data.dart';
 import '../utils/helper.dart';
 import '../utils/sharedprefs.dart';
 
