@@ -1,6 +1,6 @@
 import '../model/sura.dart';
 
-List<Map<int, int>> juzAndIndex = [
+List<Map<dynamic, int>> juzAndIndex = [
   {1: 1},
   {2: 22},
   {3: 42},
@@ -31,6 +31,9 @@ List<Map<int, int>> juzAndIndex = [
   {28: 542},
   {29: 562},
   {30: 582},
+  {'موافقة الأزهر الشريف': 605},
+  {'المراجع': 606},
+  {'نبذة عن الكاتبة': 607},
 ];
 
 List<Sura> suraList = [
@@ -829,5 +832,29 @@ List<Sura> suraList = [
     verseNumbers: 5,
     pageNo: 604,
     order: 114,
+  ),
+  Sura(
+    name: 'موافقة الأزهر الشريف',
+    isRef: true,
+    pageNo: 605,
+    isMakka: true,
+    verseNumbers: 5,
+    order: 0,
+  ),
+  Sura(
+    name: 'المراجع',
+    isRef: true,
+    pageNo: 606,
+    isMakka: true,
+    verseNumbers: 5,
+    order: 0,
+  ),
+  Sura(
+    name: 'نبذة عن الكاتبة',
+    isRef: true,
+    pageNo: 607,
+    isMakka: true,
+    verseNumbers: 5,
+    order: 0,
   ),
 ];

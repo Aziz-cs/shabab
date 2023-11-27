@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shabab/utils/content_data.dart';
+import 'package:shabab/utils/helper.dart';
 import 'package:shabab/utils/sharedprefs.dart';
 import 'package:shabab/utils/tafsil_data.dart';
 import 'package:shabab/widgets/item_juz.dart';
@@ -16,12 +17,13 @@ class ContentPage extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    print('tab index: ${sharedPrefs.lastTab}');
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     return DefaultTabController(
       length: myTabs.length,
       initialIndex: sharedPrefs.lastTab,
       child: Scaffold(
-        backgroundColor: Colors.blueGrey.shade700,
+        backgroundColor: kDefaultAppColor,
         appBar: AppBar(
           iconTheme: const IconThemeData(
             color: Colors.white, //change your color here
@@ -37,7 +39,7 @@ class ContentPage extends StatelessWidget {
           toolbarHeight: 30,
           backgroundColor: Colors.blueGrey.shade900,
           bottom: TabBar(
-            indicatorColor: Colors.white,
+            indicatorColor: Colors.amber.shade50,
             labelColor: Colors.white,
             overlayColor: MaterialStateProperty.all(Colors.grey),
             tabs: myTabs,

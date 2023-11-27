@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shabab/pages/quran_page.dart';
 import 'package:shabab/utils/helper.dart';
@@ -20,14 +21,19 @@ class SuraItem extends StatelessWidget {
         tileColor: Colors.blueGrey.shade700,
         leading: Padding(
           padding: const EdgeInsets.only(right: 13),
-          child: Text(
-            sura.order.toString(),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          child: sura.isRef
+              ? const Icon(
+                  Icons.bookmark,
+                  color: Colors.white70,
+                )
+              : Text(
+                  sura.order.toString(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
         ),
         title: Text(
           sura.name,
@@ -37,13 +43,15 @@ class SuraItem extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        subtitle: Text(
-          getSuraDetails(sura),
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 15,
-          ),
-        ),
+        subtitle: sura.isRef
+            ? const SizedBox()
+            : Text(
+                getSuraDetails(sura),
+                style: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 15,
+                ),
+              ),
         trailing: Column(
           children: [
             const Text(
@@ -65,7 +73,7 @@ class SuraItem extends StatelessWidget {
           ],
         ),
         onTap: () {
-          sharedPrefs.lastPage = sura.pageNo - 1;
+          sharedPrefs.lastPage = sura.pageNo;
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(

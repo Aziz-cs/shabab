@@ -18,7 +18,7 @@ class SplashPage extends StatelessWidget {
     });
     return Scaffold(
       body: Image.asset(
-        'assets/images/tafsir_cover.jpeg',
+        'assets/images/book_cover.jpg',
         fit: BoxFit.fill,
         height: double.infinity,
         width: double.infinity,

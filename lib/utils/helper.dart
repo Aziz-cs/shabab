@@ -7,6 +7,8 @@ var kTxtStyleWhite = const TextStyle(
   // height: 0.5,
 );
 
+final Color kDefaultAppColor = Colors.blueGrey.shade900;
+
 void showToast(String message) {
   Fluttertoast.showToast(
     msg: message,
@@ -17,7 +19,7 @@ void showToast(String message) {
 }
 
 bool isCurrentPageIsTheMarkedPage() =>
-    sharedPrefs.markedPage == sharedPrefs.lastPage + 1;
+    sharedPrefs.markedPage == sharedPrefs.lastPage;
 
 String getHezbSubNumberName(int hezbSubNumber) {
   switch (hezbSubNumber) {

@@ -18,55 +18,80 @@ class TafsilItem extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: ListTile(
-        tileColor: Colors.blueGrey.shade700,
-        leading: const Padding(
-          padding: EdgeInsets.only(right: 4),
-          child: Text(
-            '-',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
+        tileColor: tafsil.isSuraTitle
+            ? Colors.blueGrey.shade800
+            : Colors.blueGrey.shade700,
+        // leading: const Padding(
+        //   padding: EdgeInsets.only(right: 4),
+        //   child: Text(
+        //     '-',
+        //     style: TextStyle(
+        //       color: Colors.white,
+        //       fontSize: 18,
+        //       fontWeight: FontWeight.w500,
+        //     ),
+        //   ),
+        // ),
         title: Text(
           tafsil.title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
+          textAlign: tafsil.isSuraTitle ? TextAlign.center : TextAlign.right,
+          style: TextStyle(
+            color: tafsil.isSuraTitle ? Colors.amber.shade50 : Colors.white,
+            fontSize: tafsil.isSuraTitle ? 21 : 18,
+            fontWeight:
+                // tafsil.isSuraTitle ? FontWeight.bold :
+                FontWeight.w500,
           ),
         ),
-        subtitle: Text(
-          tafsil.suraName,
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 15,
+        // subtitle: tafsil.isSuraTitle
+        //     ? const SizedBox()
+        //     : Text(
+        //         tafsil.suraName,
+        //         style: const TextStyle(
+        //           color: Colors.white70,
+        //           fontSize: 15,
+        //         ),
+        //       ),
+        trailing: SizedBox(
+          width: 45,
+          child: Column(
+            children: [
+              Text(
+                tafsil.suraName.isEmpty ? 'صفحة' : tafsil.suraName,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color:
+                      tafsil.isSuraTitle ? Colors.amber.shade50 : Colors.white,
+                  fontSize: 11,
+                  overflow: TextOverflow.fade,
+                ),
+              ),
+              Flexible(
+                child: Text(
+                  tafsil.pageNo.toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: tafsil.isSuraTitle
+                        ? Colors.amber.shade50
+                        : Colors.white,
+                    fontSize: 16,
+                    // fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              // const Text(
+              //   'صــ',
+              //   style: TextStyle(
+              //     color: Colors.white, fontSize: 14,
+              //     height: 0.5,
+              //     // fontWeight: FontWeight.w500,
+              //   ),
+              // ),
+            ],
           ),
-        ),
-        trailing: Column(
-          children: [
-            const Text(
-              'صفحة',
-              style: TextStyle(
-                color: Colors.white, fontSize: 12,
-                // fontWeight: FontWeight.w500,
-              ),
-            ),
-            Text(
-              tafsil.pageNo.toString(),
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                height: 1.1,
-                // fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
         ),
         onTap: () {
-          sharedPrefs.lastPage = tafsil.pageNo - 1;
+          sharedPrefs.lastPage = tafsil.pageNo;
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(

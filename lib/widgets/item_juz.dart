@@ -5,13 +5,19 @@ import 'package:shabab/utils/helper.dart';
 
 import '../utils/sharedprefs.dart';
 
+const juzTxtStyle = TextStyle(
+  color: Colors.white70,
+  fontSize: 18,
+  fontWeight: FontWeight.w500,
+);
+
 class JuzItem extends StatelessWidget {
   const JuzItem({
     Key? key,
     required this.juzAndIndexMap,
   }) : super(key: key);
 
-  final Map<int, int> juzAndIndexMap;
+  final Map<dynamic, int> juzAndIndexMap;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -22,20 +28,21 @@ class JuzItem extends StatelessWidget {
           Icons.bookmark,
           color: Colors.white70,
         ),
-        title: Text(
-          'الجزء ${juzAndIndexMap.keys.first}',
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        title: isRefItem(juzAndIndexMap.values.first)
+            ? Text(
+                '${juzAndIndexMap.keys.first}',
+                style: juzTxtStyle,
+              )
+            : Text(
+                'الجزء ${juzAndIndexMap.keys.first}',
+                style: juzTxtStyle,
+              ),
         trailing: const Icon(
           Icons.arrow_right_outlined,
           color: Colors.white70,
         ),
         onTap: () {
-          sharedPrefs.lastPage = juzAndIndexMap.values.first - 1;
+          sharedPrefs.lastPage = juzAndIndexMap.values.first;
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
@@ -43,10 +50,15 @@ class JuzItem extends StatelessWidget {
                     isBookmarkVisible: isCurrentPageIsTheMarkedPage()),
               ),
               (route) => false);
-
-          showToast('جزء ${juzAndIndexMap.keys.first}');
+          if (isRefItem(juzAndIndexMap.values.first) == false) {
+            showToast('جزء ${juzAndIndexMap.keys.first}');
+          }
         },
       ),
     );
+  }
+
+  bool isRefItem(int pageNo) {
+    return pageNo == 605 || pageNo == 606 || pageNo == 607;
   }
 }

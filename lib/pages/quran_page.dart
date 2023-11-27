@@ -28,7 +28,7 @@ class QuranPage extends StatefulWidget {
 class _QuranPageState extends State<QuranPage> {
   late bool isPortrait;
 
-  bool _isBarsVisible = false;
+  bool _isBarsVisible = true;
   final pageController = PageController(
     initialPage: sharedPrefs.lastPage,
   );
@@ -129,14 +129,14 @@ class _QuranPageState extends State<QuranPage> {
             widget.isBookmarkVisible = false;
           });
         }
-        getToastMessage(currentPage: currentPage + 1);
+        getToastMessage(currentPage: currentPage);
       },
       controller: pageController,
 
       // reverse: true,
       allowImplicitScrolling: true,
       children: List.generate(
-        604,
+        608,
         (index) => sharedPrefs.isDarkMode
             ? ColorFiltered(
                 colorFilter:
@@ -151,12 +151,12 @@ class _QuranPageState extends State<QuranPage> {
   Widget _buildQuranPage(int index) {
     return isPortrait
         ? Image.asset(
-            'assets/quran_pages/${index + 1}.png',
+            'assets/quran_pages/${index}.png',
             fit: sharedPrefs.isFullscreen ? BoxFit.fill : BoxFit.contain,
           )
         : PhotoView(
             imageProvider: AssetImage(
-              "assets/quran_pages/${index + 1}.png",
+              "assets/quran_pages/${index}.png",
             ),
             backgroundDecoration: BoxDecoration(
               color: sharedPrefs.isDarkMode ? Colors.black : Colors.white,
@@ -205,6 +205,10 @@ class _QuranPageState extends State<QuranPage> {
   }
 
   Widget _buildTopDetailsBar() {
+    bool isNonQuranPage = sharedPrefs.lastPage == 0 ||
+        sharedPrefs.lastPage == 605 ||
+        sharedPrefs.lastPage == 606 ||
+        sharedPrefs.lastPage == 607;
     return Visibility(
       visible: _isBarsVisible,
       child: Positioned(
@@ -214,34 +218,45 @@ class _QuranPageState extends State<QuranPage> {
             vertical: 10,
           ),
           color: Colors.blueGrey.shade900.withOpacity(0.8),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: Text(
-                  getJuzName(sharedPrefs.lastPage + 1),
-                  textAlign: TextAlign.right,
-                  style: kTxtStyleWhite,
+          child: isNonQuranPage
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      getTextOfNonQuranPage(sharedPrefs.lastPage),
+                      textAlign: TextAlign.right,
+                      style: kTxtStyleWhite,
+                    ),
+                  ],
+                )
+              : Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        getJuzName(sharedPrefs.lastPage),
+                        textAlign: TextAlign.right,
+                        style: kTxtStyleWhite,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Text(
+                        '${sharedPrefs.lastPage}',
+                        textAlign: TextAlign.center,
+                        style: kTxtStyleWhite,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        'سورة ${getSuraName(sharedPrefs.lastPage)}',
+                        textAlign: TextAlign.left,
+                        style: kTxtStyleWhite,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  '${sharedPrefs.lastPage + 1}',
-                  textAlign: TextAlign.center,
-                  style: kTxtStyleWhite,
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Text(
-                  'سورة ${getSuraName(sharedPrefs.lastPage + 1)}',
-                  textAlign: TextAlign.left,
-                  style: kTxtStyleWhite,
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
@@ -295,7 +310,7 @@ class _QuranPageState extends State<QuranPage> {
                 size: 21,
               ),
               onPressed: () {
-                sharedPrefs.markedPage = sharedPrefs.lastPage + 1;
+                sharedPrefs.markedPage = sharedPrefs.lastPage;
                 setState(() {
                   _isBarsVisible = false;
                   widget.isBookmarkVisible = true;
@@ -325,7 +340,7 @@ class _QuranPageState extends State<QuranPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                sharedPrefs.lastPage = sharedPrefs.markedPage - 1;
+                sharedPrefs.lastPage = sharedPrefs.markedPage;
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -401,13 +416,13 @@ class _QuranPageState extends State<QuranPage> {
                             if (int.parse(_pageNoTextController.text.trim()) <
                                     1 ||
                                 int.parse(_pageNoTextController.text.trim()) >
-                                    604) {
+                                    607) {
                               showToast('برجاء إدخال رقم صفحة صحيح');
                               return;
                             }
 
                             pageController.jumpToPage(
-                              int.parse(_pageNoTextController.text.trim()) - 1,
+                              int.parse(_pageNoTextController.text.trim()),
                             );
                             _pageNoTextController.text = '';
                           },
@@ -566,5 +581,21 @@ https://apps.apple.com/eg/app/id1641840559
         ],
       ),
     );
+  }
+
+  String getTextOfNonQuranPage(int page) {
+    print('page $page');
+    switch (page) {
+      case 0:
+        return 'المقدمة';
+      case 605:
+        return 'موافقة الأزهر الشريف';
+      case 606:
+        return 'المراجع';
+      case 607:
+        return 'نبذة عن الكاتبة';
+      default:
+        return '';
+    }
   }
 }

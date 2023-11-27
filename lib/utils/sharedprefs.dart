@@ -17,7 +17,7 @@ class SharedPrefs {
   }
 
   int get lastPage => _sharedPrefs!.getInt(keyLastPage) ?? 0;
-  int get lastTab => _sharedPrefs!.getInt(keyLastTab) ?? 0;
+  int get lastTab => _sharedPrefs!.getInt(keyLastTab) ?? 1;
   int get markedPage => _sharedPrefs!.getInt(keyMarkedPage) ?? 0;
   bool get isDarkMode => _sharedPrefs!.getBool(keyIsDarkMode) ?? false;
   bool get isFullscreen => _sharedPrefs!.getBool(keyIsFullscreen) ?? false;
