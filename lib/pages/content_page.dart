@@ -41,6 +41,7 @@ class ContentPage extends StatelessWidget {
           bottom: TabBar(
             indicatorColor: Colors.amber.shade50,
             labelColor: Colors.white,
+            unselectedLabelColor: Colors.white54,
             overlayColor: MaterialStateProperty.all(Colors.grey),
             tabs: myTabs,
             onTap: (index) => sharedPrefs.lastTab = index,
